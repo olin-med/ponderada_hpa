@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: php-app
+    labels:
+        app: php-app
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: php-app
+    template:
+        metadata:
+            labels:
+                app: php-app
+        spec:
+            containers:
+                - name: php-app
+                  image: php-hpa-app:latest
+                  imagePullPolicy: Never # Para usar imagem local do Kind
+                  ports:
+                      - containerPort: 80
+                        name: http
+                  resources:
+                      requests:
+                          cpu: 100m
+                          memory: 128Mi
+                      limits:
+                          cpu: 500m
+                          memory: 512Mi
+                  livenessProbe:
+                      httpGet:
+                          path: /stress.php?action=health
+                          port: 80
+                      initialDelaySeconds: 30
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      failureThreshold: 3
+                  readinessProbe:
+                      httpGet:
+                          path: /stress.php?action=health
+                          port: 80
+                      initialDelaySeconds: 5
+                      periodSeconds: 5
+                      timeoutSeconds: 3
+                      failureThreshold: 3
+                  env:
+                      - name: POD_NAME
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.name
+                      - name: POD_NAMESPACE
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.namespace
+                      - name: POD_IP
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: status.podIP

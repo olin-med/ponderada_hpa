@@ -1,0 +1,46 @@
+# Logs
+*.log
+logs/
+
+# Resultados de testes temporários
+/tmp/load-test-results-*.json
+/tmp/hpa-metrics-*.log
+
+# Docker
+.dockerignore
+
+# Kubernetes temporários
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Resultados de testes específicos (manter estrutura, remover dados sensíveis)
+test-results-*.json
+metrics-*.csv
+
+# Arquivos de configuração local
+local-config/
+private/
+
+# Backups
+*.bak
+*.backup
