@@ -1,3 +1,5 @@
+[Link Video](https://youtu.be/tXIlmW95cqw)
+
 # Cluster Kubernetes com HPA - Atividade Ponderada
 
 Este projeto implementa um cluster Kubernetes com Horizontal Pod Autoscaler (HPA) para uma aplicação PHP/Apache, demonstrando escalabilidade automática baseada em métricas de CPU e memória.
